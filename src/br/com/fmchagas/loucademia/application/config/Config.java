@@ -1,4 +1,4 @@
-package br.com.fmchagas.loucademia;
+package br.com.fmchagas.loucademia.application.config;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.annotation.FacesConfig;
