@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -7,28 +7,28 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	lang="pt-br">
 	<head jsf:id="head">
-		<meta charset="ISO-8859-1" />
+		<meta charset="UTF-8" />
 		<title>Loucademia</title>
 		<link rel="stylesheet" type="text/css" href="css/Loucademia_Estilo.css" />
 	</head>
+	
 	<body>
-		<!--  Cabeçalho - Início -->
+		<!--  CabeÃ§alho - InÃ­cio -->
 		<header>
 			<img src="images/Loucademia_Logotipo.png" />
 			<nav>
 				<div>
-					<a href="dadosAluno">Novo aluno</a><br />
-					<a href="pesquisaDeAluno?clear=true">Pesquisa de aluno</a><br />
-					<a href="controleDeAcesso">Controle de acesso</a><br />
-					<a href="relatoriosDeEntradaSaida">Relatórios de Entradas e Saídas</a><br />
-					<a href="relatoriosDeSituacoes?clear=true">Relatórios de Situações</a><br />
+					<a jsf:outcome="dadosAluno">Novo aluno</a><br />
+					<a jsf:outcome="pesquisaDeAluno?clear=true">Pesquisa de aluno</a><br />
+					<a jsf:outcome="controleDeAcesso">Controle de acesso</a><br />
+					<a jsf:outcome="relatoriosDeEntradaSaida">RelatÃ³rios de Entradas e SaÃ­das</a><br />
+					<a jsf:outcome="relatoriosDeSituacoes?clear=true">RelatÃ³rios de SituaÃ§Ãµes</a><br />
 				</div>
 			</nav>
 		</header>
-		<!--  Cabeçalho - Fim -->
+		<!--  CabeÃ§alho - Fim -->
 		
+		<ui:insert name="conteudo" />
 
-<!-- Rodaé - Inicio -->
 	</body>
 </html>
-<!-- Rodapé Fim -->

@@ -11,14 +11,11 @@ import javax.persistence.Table;
 @Table(name="ESTADO")
 public class Estado implements Serializable{
 
-	@Id
-	@Column(name="SIGLA", nullable=false, length = 2)
 	private String sigla;
-	
-	@Column(name="NOME", nullable=false, length = 30)
 	private String nome;
 	
-	
+	@Id
+	@Column(name="SIGLA", nullable=false, length = 2)
 	public String getSigla() {
 		return sigla;
 	}
@@ -26,6 +23,7 @@ public class Estado implements Serializable{
 		this.sigla = sigla;
 	}
 	
+	@Column(name="NOME", nullable=false, length = 30)
 	public String getNome() {
 		return nome;
 	}
