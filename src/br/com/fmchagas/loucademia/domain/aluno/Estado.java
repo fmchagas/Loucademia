@@ -1,8 +1,21 @@
 package br.com.fmchagas.loucademia.domain.aluno;
 
-public class Estado {
+import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="ESTADO")
+public class Estado implements Serializable{
+
+	@Id
+	@Column(name="SIGLA", nullable=false, length = 2)
 	private String sigla;
+	
+	@Column(name="NOME", nullable=false, length = 30)
 	private String nome;
 	
 	

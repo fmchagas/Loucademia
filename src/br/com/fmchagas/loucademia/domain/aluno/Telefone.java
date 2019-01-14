@@ -1,30 +1,43 @@
 package br.com.fmchagas.loucademia.domain.aluno;
 
-public class Telefone {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
+public class Telefone implements Serializable {
 
 	private Integer dddCelular;
 	private Integer numeroCelular;
 	private Integer dddFixo;
 	private Integer numeroFixo;
 	
+	@Column(name = "CELULAR_DDD", nullable = false, length = 2)
 	public Integer getDddCelular() {
 		return dddCelular;
 	}
 	public void setDddCelular(Integer dddCelular) {
 		this.dddCelular = dddCelular;
 	}
+	
+	@Column(name = "CELULAR_NUMERO", nullable = false, length = 9)
 	public Integer getNumeroCelular() {
 		return numeroCelular;
 	}
 	public void setNumeroCelular(Integer numeroCelular) {
 		this.numeroCelular = numeroCelular;
 	}
+	
+	@Column(name = "FIXO_DDD", nullable = true, length = 2)
 	public Integer getDddFixo() {
 		return dddFixo;
 	}
 	public void setDddFixo(Integer dddFixo) {
 		this.dddFixo = dddFixo;
 	}
+	
+	@Column(name = "FIXO_NUMERO", nullable = true, length = 8)
 	public Integer getNumeroFixo() {
 		return numeroFixo;
 	}

@@ -1,6 +1,14 @@
 package br.com.fmchagas.loucademia.domain.aluno;
 
-public class Endereco {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Embeddable
+public class Endereco implements Serializable {
 
 	private String rua;
 	private Integer numero;
@@ -9,6 +17,7 @@ public class Endereco {
 	private Estado estado = new Estado();
 	private Integer cep;
 	
+	@Column(name = "RUA", nullable = false, length = 128)
 	public String getRua() {
 		return rua;
 	}
@@ -16,6 +25,7 @@ public class Endereco {
 		this.rua = rua;
 	}
 	
+	@Column(name = "NUMERO", nullable = true, length = 6)
 	public Integer getNumero() {
 		return numero;
 	}
@@ -23,6 +33,7 @@ public class Endereco {
 		this.numero = numero;
 	}
 	
+	@Column(name = "COMPLEMENTO", nullable = true, length = 32)
 	public String getComplemento() {
 		return complemento;
 	}
@@ -30,6 +41,7 @@ public class Endereco {
 		this.complemento = complemento;
 	}
 	
+	@Column(name = "CIDADE", nullable = false, length = 64)
 	public String getCidade() {
 		return cidade;
 	}
@@ -37,6 +49,8 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name = "ESTADO_ID", nullable = false)
 	public Estado getEstado() {
 		return estado;
 	}
@@ -44,6 +58,7 @@ public class Endereco {
 		this.estado = estado;
 	}
 	
+	@Column(name = "CEP", nullable = false, length = 8)
 	public Integer getCep() {
 		return cep;
 	}

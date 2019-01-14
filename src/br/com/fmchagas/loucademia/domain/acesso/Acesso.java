@@ -1,20 +1,34 @@
 package br.com.fmchagas.loucademia.domain.acesso;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import br.com.fmchagas.loucademia.domain.aluno.Aluno;
 
-public class Acesso {
+@Entity
+@Table(name = "ESTRADAS_SAIDAS")
+public class Acesso implements Serializable {
 
 	private Integer id;
-	
+
 	private Aluno aluno;
-	
+
 	private LocalDateTime entrada;
-	
+
 	private LocalDateTime saida;
 
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID", nullable = false)
 	public Integer getId() {
 		return id;
 	}
@@ -23,6 +37,8 @@ public class Acesso {
 		this.id = id;
 	}
 
+	@ManyToOne
+	@JoinColumn(name="ALUNO_ID", nullable = false)
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -31,6 +47,7 @@ public class Acesso {
 		this.aluno = aluno;
 	}
 
+	@Column(name="ENTRADA", nullable = false)
 	public LocalDateTime getEntrada() {
 		return entrada;
 	}
@@ -39,6 +56,7 @@ public class Acesso {
 		this.entrada = entrada;
 	}
 
+	@Column(name="SAIDA", nullable = true)
 	public LocalDateTime getSaida() {
 		return saida;
 	}
@@ -46,7 +64,6 @@ public class Acesso {
 	public void setSaida(LocalDateTime saida) {
 		this.saida = saida;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -87,5 +104,5 @@ public class Acesso {
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
 }

@@ -1,8 +1,19 @@
 package br.com.fmchagas.loucademia.domain.aluno;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Aluno {
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ALUNO")
+public class Aluno implements Serializable {
 
 	public enum Sexo {
 		Masculino, Feminino;
@@ -22,55 +33,74 @@ public class Aluno {
 	private Endereco endereco = new Endereco();
 	private Telefone telefone = new Telefone();
 	
-	
+	@Id
+	@Column(name = "ID", nullable = false, length = 8)
 	public String getMatricula() {
 		return matricula;
 	}
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
+	
+	@Column(name = "NOME", nullable = false, length = 64)
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	@Enumerated (EnumType.ORDINAL)
+	@Column(name = "SEXO", nullable = false, length = 1 )
 	public Sexo getSexo() {
 		return sexo;
 	}
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
+	
+	@Column(name = "RG", nullable = false, length = 10)
 	public Integer getRg() {
 		return rg;
 	}
 	public void setRg(Integer rg) {
 		this.rg = rg;
 	}
+	
+	@Column(name = "NASCIMENTO", nullable = false)
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+	
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "SITUACAO", nullable = false, length=1)
 	public Situacao getSituacao() {
 		return situacao;
 	}
 	public void setSituacao(Situacao situacao) {
 		this.situacao = situacao;
 	}
+	
+	@Column(name = "EMAIL", nullable = true, length = 64)
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	@Embedded
 	public Endereco getEndereco() {
 		return endereco;
 	}
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+	
+	@Embedded
 	public Telefone getTelefone() {
 		return telefone;
 	}
