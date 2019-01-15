@@ -7,32 +7,47 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf" lang="pt-br">
 
 	<ui:composition template="layout.xhtml">
+		<f:metadata>
+			<f:viewParam name="matricula" value="#{alunoBean.matricula}" />
+			<f:viewAction action="#{alunoBean.carregar}" />
+		</f:metadata>
 		<ui:define name="conteudo" >
 		
-			<h1>Novo aluno</h1>
+			<h1>#{alunoBean.titulo}</h1>
 		
-			<div id="infoMessage">Mensagem de sistema: sucesso ou erro</div>
+			<h:panelGroup rendered="#{!facesContext.messageList.isEmpty()}">
+				<div id="infoMessage">
+					<h:messages />
+				</div>
+			</h:panelGroup>		
 		
 			<br />
 		
 			<form jsf:id="frm">
+				<input type="hidden" jsf:value="#{alunoBean.aluno.matricula}" />
 				<fieldset>
 					<legend>Dados Pessoais</legend>
 		
-					<label for="nome">Nome</label><br />
-					<input type="text" id="nome" jsf:value="#{alunoBean.aluno.nome}" /><br />
+					<label for="Nome">Nome</label><br />
+					<input type="text" id="nome" jsf:value="#{alunoBean.aluno.nome}" maxlength="64" jsf:label="Nome">
+						<f:validateLength minimum="2" maximum="64" />
+					</input><br />
 					
 					<label for="sexo">Sexo</label><br />
-					<select id="sexo" jsf:value="#{alunoBean.aluno.sexo}" size="0">
+					<select id="sexo" jsf:value="#{alunoBean.aluno.sexo}" size="0" jsf:label="Sexo">
 						<f:selectItems value="#{dataBean.sexos}" />
 					</select><br />
 					
 					<label for="rg">RG</label><br />
-					<input type="text" id="rg" jsf:value="#{alunoBean.aluno.rg}" /><br />
+					<input type="text" id="rg" jsf:value="#{alunoBean.aluno.rg}" maxlength="10" jsf:label="RG">
+						<f:validateRequired />
+						<f:validateLongRange minimum="100000" maximum="9999999999" />
+					</input><br />
 					
 					<label for="dataDeNascimento">Data de Nascimento</label><br />
-					<input type="date" id="dataDeNascimento" jsf:value="#{alunoBean.aluno.dataNascimento}">
+					<input type="date" id="dataDeNascimento" jsf:value="#{alunoBean.aluno.dataNascimento}" jsf:label="Data de Nascimento">
 						<f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+						<f:validateRequired />
 					</input>
 					<br />
 				</fieldset>
@@ -52,24 +67,37 @@
 					<legend>Endereço</legend>
 		
 					<label for="rua">Rua</label><br /> <input type="text" id="rua"
-						jsf:value="#{alunoBean.aluno.endereco.rua}" /><br />
+						jsf:value="#{alunoBean.aluno.endereco.rua}" maxlength="128" jsf:label="Rua">
+							<f:validateLength minimum="3" maximum="128" />
+						</input><br />
 						
 						<label for="numero">Número</label><br />
-						<input type="text" id="numero" jsf:value="#{alunoBean.aluno.endereco.numero}" /><br />
+						<input type="text" id="numero" jsf:value="#{alunoBean.aluno.endereco.numero}" jsf:label="Número">
+							<f:validateLongRange minimum="1" maximum="999999" />
+						</input><br />
 						
 						<label for="complemento">Complemento</label><br />
-						<input type="text" id="complemento" jsf:value="#{alunoBean.aluno.endereco.complemento}" /><br />
+						<input type="text" id="complemento" jsf:value="#{alunoBean.aluno.endereco.complemento}" maxlength="32" jsf:label="Complemento" >
+							<f:validateLength maximum="32" />
+						</input><br />
 						
 						<label for="cidade">Cidade</label><br />
-						<input type="text" id="cidade" jsf:value="#{alunoBean.aluno.endereco.cidade}" /><br />
+						<input type="text" id="cidade" jsf:value="#{alunoBean.aluno.endereco.cidade}" maxlength="64" jsf:label="Cidade" >
+							<f:validateLength minimum="3" maximum="64" />
+						</input><br />
 						
 						<label for="uf">Estado</label><br />
-						<select id="uf" jsf:value="#{alunoBean.aluno.endereco.estado.sigla}" size="0">
+						<select id="uf" jsf:value="#{alunoBean.aluno.endereco.estado.sigla}" size="0" jsf:label="Estado">
+							<f:selectItem itemLabel="Escolha..." itemValue="" />
 							<f:selectItems value="#{dataBean.estados}" var="uf" itemLabel="#{uf.nome}" itemValue="#{uf.sigla}" />
+							<f:validateRequired />
 						</select><br />
 						
 						<label for="cep">CEP</label><br />
-						<input type="text" id="cep" jsf:value="#{alunoBean.aluno.endereco.cep}" /><br />
+						<input type="text" id="cep" jsf:value="#{alunoBean.aluno.endereco.cep}" maxlength="8" jsf:label="CEP" >
+							<f:validateRequired />
+							<f:validateLongRange minimum="10000000" maximum="999999999" />
+						</input><br />
 				</fieldset>
 		
 				<br />
@@ -78,15 +106,28 @@
 					<legend>Contato</legend>
 		
 					<label for="email">E-mail</label><br />
-					<input type="email" id="email" jsf:value="#{alunoBean.aluno.email}" /><br />
+					<input type="email" id="email" jsf:value="#{alunoBean.aluno.email}" maxlength="64" jsf:label="E-mail" >
+						<f:validateLength maximum="64" />
+						<f:validateRegex pattern=".+@.+" />
+					</input><br />
 						
 						<label for="telefoneCelularDDD">Telefone Celular</label><br />
-						<input type="tel" id="telefoneCelularDDD" jsf:value="#{alunoBean.aluno.telefone.dddCelular}" />&#160;
-						<input type="tel" id="telefoneCelularNumero" jsf:value="#{alunoBean.aluno.telefone.numeroCelular}" /><br />
+						<input type="tel" id="telefoneCelularDDD" jsf:value="#{alunoBean.aluno.telefone.dddCelular}" maxlength="2" jsf:label="DDD Celular">
+							<f:validateRequired />
+							<f:validateLongRange minimum="10" maximum="99" />
+						</input>&#160;
+						<input type="tel" id="telefoneCelularNumero" jsf:value="#{alunoBean.aluno.telefone.numeroCelular}" maxlength="9" jsf:label="Número Celular">
+							<f:validateRequired />
+							<f:validateLongRange minimum="10000000" maximum="999999999" />
+						</input><br />
 						
 						<label for="telefoneFixoDDD">Telefone Fixo</label><br />
-						<input type="tel" id="telefoneFixoDDD" jsf:value="#{alunoBean.aluno.telefone.dddFixo}" />&#160;
-						<input type="tel" id="telefoneFixoNumero" jsf:value="#{alunoBean.aluno.telefone.numeroFixo}" /><br />
+						<input type="tel" id="telefoneFixoDDD" jsf:value="#{alunoBean.aluno.telefone.dddFixo}" maxlength="2" jsf:label="DDD Fixo" >
+
+						</input>&#160;
+						<input type="tel" id="telefoneFixoNumero" jsf:value="#{alunoBean.aluno.telefone.numeroFixo}" maxlength="9" jsf:label="Número Fixo">
+
+						</input><br />
 				</fieldset>
 		
 				<br />
