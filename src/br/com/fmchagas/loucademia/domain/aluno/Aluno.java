@@ -2,6 +2,7 @@ package br.com.fmchagas.loucademia.domain.aluno;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Year;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -10,6 +11,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import br.com.fmchagas.loucademia.application.util.StringUtils;
 
 @Entity
 @Table(name = "ALUNO")
@@ -32,6 +35,20 @@ public class Aluno implements Serializable {
 	private String email;
 	private Endereco endereco = new Endereco();
 	private Telefone telefone = new Telefone();
+	
+	public void gerarMatricula(String maxMatricula) {
+		Year year = Year.now();
+		
+		if (maxMatricula == null) {
+			maxMatricula = year + StringUtils.leftZeroes(0, 4);//apartir do 5º elemento adiciona zeros a esquerda
+		}
+		
+		int sequential = Integer.parseInt( maxMatricula.substring(4) );//pula os 4 primeiro elemento e quebra apartir do 5º e devolve um numero inteiro
+
+		sequential++;//
+		
+		this.matricula = year + StringUtils.leftZeroes(sequential, 4);
+	}
 	
 	@Id
 	@Column(name = "ID", nullable = false, length = 8)

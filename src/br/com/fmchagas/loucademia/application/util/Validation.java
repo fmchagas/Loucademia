@@ -2,7 +2,7 @@ package br.com.fmchagas.loucademia.application.util;
 
 public class Validation {
 
-	public static void assertNotEmpty(Object obj) throws ValidationException {
+	public static void assertNotEmpty(Object obj) {
 		if (obj instanceof String) {
 			String s = (String) obj;
 			
