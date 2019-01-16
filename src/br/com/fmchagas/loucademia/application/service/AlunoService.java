@@ -1,5 +1,8 @@
 package br.com.fmchagas.loucademia.application.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -40,6 +43,17 @@ public class AlunoService {
 
 	public Aluno findByMatricula(String matricula) {
 		return alunoRepository.findByMatricula(matricula);
+	}
+	
+	public List<Aluno> listAlunos(String matricula, String nome, String rg, String telefone){
+		Aluno aluno = alunoRepository.findByMatricula(matricula);
+		List<Aluno> alunos = new ArrayList<>();
+		alunos.add(aluno);
+		return alunos;
+	}
+
+	public void delete(String matricula) {
+		alunoRepository.delete(matricula);
 	}
 
 }

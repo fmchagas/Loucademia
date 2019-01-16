@@ -4,96 +4,70 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	lang="pt-br">
+	xmlns:jsf="http://xmlns.jcp.org/jsf" lang="pt-br">
 	
 	<ui:composition template="layout.xhtml">
 		<ui:define name="conteudo" >
 			
 			<h1>Pesquisa de aluno</h1>
 		
-			<div id="infoMessage">Mensagem de sistema: sucesso ou erro</div>
+			<h:panelGroup rendered="#{!facesContext.messageList.isEmpty()}">
+                <div id="infoMessage">
+                    <h:messages />
+                </div>
+            </h:panelGroup>     
 		
 			<br />
 		
-			<form>
+			<form jsf:id="frm">
 				<fieldset>
 					<legend>Parâmetros da Pesquisa</legend>
 					
-					<label for="id">ID</label><br />
-					<input type="text" id="id" name="id" /><br />
+					<label for="id">Matricula</label><br />
+					<input type="text"  id="id"  jsf:value="#{pesquisaAlunoBean.matricula}" /><br />
 					
 					<label for="nome">Nome</label><br />
-					<input type="text" id="nome" name="nome" /><br />
+					<input type="text"  id="nome"   jsf:value="#{pesquisaAlunoBean.nome}"  /><br />
 					
 					<label for="rg">RG</label><br />
-					<input type="text" id="rg" name="rg" /><br />
+					<input type="text"  id="rg"   jsf:value="#{pesquisaAlunoBean.rg}" /><br />
 					
 					<label for="telefoneDDD">Telefone</label><br />
-					<input type="tel" id="telefoneDDD" name="telefoneDDD" />
-					<input type="tel" id="telefoneNumero" name="telefoneNumero" /><br />
+					<input type="tel"  id="telefoneNumero"   jsf:value="#{pesquisaAlunoBean.telefone}" /><br />
 				</fieldset>
 				
 				<br />
 				
-				<input type="submit" value="Pesquisar" />
-			</form>
+				<input type="submit" value="Pesquisar"  jsf:action="#{pesquisaAlunoBean.pesquisar()}" />
 			
-			<table>
-				<tr>
-					<th>ID</th>
-					<th>Nome</th>
-					<th>RG</th>
-					<th>E-mail</th>
-					<th>Situação</th>
-					<th>Ações</th>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>Aluno 1</td>
-					<td>111.111.111-11</td>
-					<td>aluno1@loucademia.com</td>
-					<td>Ativo</td>
-					<td>
-						<input type="button" value="Editar" />
-						<input type="button" value="Excluir" />
-					</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Aluno 2</td>
-					<td>111.122.111-22</td>
-					<td>aluno2@loucademia.com</td>
-					<td>Inativo</td>
-					<td>
-						<input type="button" value="Editar" />
-						<input type="button" value="Excluir" />
-					</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Aluno 3</td>
-					<td>331.311.311-31</td>
-					<td>aluno3@loucademia.com</td>
-					<td>Com Pendência</td>
-					<td>
-						<input type="button" value="Editar" />
-						<input type="button" value="Excluir" />
-					</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>Aluno 4</td>
-					<td>331.311.311-31</td>
-					<td>aluno4@loucademia.com</td>
-					<td>Ativo</td>
-					<td>
-						<input type="button" value="Editar" />
-						<input type="button" value="Excluir" />
-					</td>
-				</tr>
-			</table>
+				<h:panelGroup rendered="#{not empty pesquisaAlunoBean.alunos}">
+					<table>
+						<tr>
+							<th>Matricula</th>
+							<th>Nome</th>
+							<th>RG</th>
+							<th>E-mail</th>
+							<th>Situação</th>
+							<th>Ações</th>
+						</tr>
+						<ui:repeat var="a" value="#{pesquisaAlunoBean.alunos}">
+							<tr>
+								<td>#{a.matricula}</td>
+								<td>#{a.nome}</td>
+								<td>#{a.rg}</td>
+								<td>#{a.email}</td>
+								<td>#{a.situacao}</td>
+								<td>
+									<input type="button" value="Editar"  jsf:outcome="dadosAluno?matricula=#{a.matricula}"  />&#160;
 	
+									<input type="submit" value="Excluir"  onclick="return confirm('Deseja exluir o aluno de matricula #{a.matricula}')" jsf:action="#{pesquisaAlunoBean.excluir(a.matricula)}" />
+								</td>
+							</tr>
+						</ui:repeat>
+					</table>
+				</h:panelGroup>
+	       </form>
+	       
 		</ui:define>
 	</ui:composition>
 </html>

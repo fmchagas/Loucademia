@@ -27,7 +27,7 @@ public class AlunoRepository {
 	public void delete(String matricula) {
 		Aluno aluno = findByMatricula(matricula);
 		if (aluno != null) {
-			em.remove(matricula);
+			em.remove(aluno);
 		}
 	}
 	
