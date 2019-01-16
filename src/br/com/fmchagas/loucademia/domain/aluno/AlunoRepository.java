@@ -27,6 +27,12 @@ public class AlunoRepository {
 	public Aluno findByMatricula(String matricula) {
 		return em.find(Aluno.class, matricula);
 	}
+	
+	public Aluno findByRG(Integer rg) {
+		return em.createQuery("SELECT a FROM Aluno a WHERE a.rg = :rg", Aluno.class)
+				.setParameter("rg", rg)
+				.getSingleResult();
+	}
 
 	public void delete(String matricula) {
 		Aluno aluno = findByMatricula(matricula);

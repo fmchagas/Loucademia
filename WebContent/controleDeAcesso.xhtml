@@ -6,50 +6,35 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	lang="pt-br">
-	<head jsf:id="head">
-		<meta charset="ISO-8859-1" />
-		<title>Loucademia</title>
-		<link rel="stylesheet" type="text/css" href="css/Loucademia_Estilo.css" />
-	</head>
-	<body>
-		<!--  Cabeçalho - Início -->
-		<header>
-			<img src="images/Loucademia_Logotipo.png" />
-			<nav>
-				<div>
-					<a href="dadosAluno">Novo aluno</a><br />
-					<a href="pesquisaDeAluno?clear=true">Pesquisa de aluno</a><br />
-					<a href="controleDeAcesso">Controle de acesso</a><br />
-					<a href="relatoriosDeEntradaSaida">Relatórios de Entradas e Saídas</a><br />
-					<a href="relatoriosDeSituacoes?clear=true">Relatórios de Situações</a><br />
-				</div>
-			</nav>
-		</header>
-		<!--  Cabeçalho - Fim -->
+	<ui:composition template="layout.xhtml">
+		<ui:define name="conteudo" >
 		
-		<h1>Controle de Acesso</h1>
-	
-		<div id="infoMessage">Mensagem de sistema: sucesso ou erro</div>
-	
-		<br />
+			<h1>Controle de Acesso</h1>
 		
-		<form>
-			<fieldset>
-				<legend>Parâmetros de Acesso</legend>
-				
-				<label for="id">Matrícula</label><br />
-				<input type="text" id="id" name="id" /><br />
-				
-				<label for="rg">RG</label><br />				
-				<input type="text" id="rg" name="rg" />
-			</fieldset>
-			
+			<h:panelGroup rendered="#{!facesContext.messageList.isEmpty()}">
+                <div id="infoMessage">
+                    <h:messages />
+                </div>
+            </h:panelGroup>     
+		
 			<br />
 			
-			<input type="submit" value="Registrar acesso" />
-		</form>
-
-<!-- Rodaé - Inicio -->
-	</body>
+			<form jsf:id="frm">
+				<fieldset>
+					<legend>Parâmetros de Acesso</legend>
+					
+					<label for="matricula">Matrícula</label><br />
+					<input type="text" id="matricula" jsf:value="#{controleAcessoBean.matricula}" /><br />
+					
+					<label for="rg">RG</label><br />				
+					<input type="text" id="rg" jsf:value="#{controleAcessoBean.rg}"  />
+				</fieldset>
+				
+				<br />
+				
+				<input type="submit" value="Registrar acesso" jsf:action="#{controleAcessoBean.registrarAcesso}" />
+			</form>
+	
+		</ui:define>
+	</ui:composition>
 </html>
-<!-- Rodapé Fim -->
