@@ -2,7 +2,7 @@ package br.com.fmchagas.loucademia.application.util;
 
 import javax.ejb.ApplicationException;
 
-//@ApplicationException
+@ApplicationException
 public class ValidationException extends RuntimeException {
 
 	public ValidationException() {
