@@ -25,6 +25,33 @@ public class Acesso implements Serializable {
 	private LocalDateTime entrada;
 
 	private LocalDateTime saida;
+	
+	
+	public Boolean entradaSaidaPreenchidas() {
+		if (entrada != null && saida != null) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public TipoAcesso registrarAcesso() {
+		LocalDateTime now = LocalDateTime.now();
+		
+		TipoAcesso tipoAcesso;
+		
+		if (entrada == null) {
+			entrada = now;
+			tipoAcesso = TipoAcesso.Entrada;
+		}else if(saida == null){
+			saida = now;
+			tipoAcesso = TipoAcesso.Saida;
+		}else {
+			tipoAcesso = null;
+		}
+		
+		return tipoAcesso;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

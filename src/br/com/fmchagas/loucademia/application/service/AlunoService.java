@@ -32,6 +32,8 @@ public class AlunoService {
 		String maxMatricula = alunoRepository.getMaxMatriculaAno();
 		aluno.gerarMatricula(maxMatricula);
 		
+		//TODO implementar regra de negocio, para validar unico rg
+		
 		alunoRepository.store(aluno);
 	}
 

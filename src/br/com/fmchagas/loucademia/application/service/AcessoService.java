@@ -2,9 +2,10 @@ package br.com.fmchagas.loucademia.application.service;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.validation.ValidationException;
 
 import br.com.fmchagas.loucademia.application.util.StringUtils;
+import br.com.fmchagas.loucademia.application.util.ValidationException;
+import br.com.fmchagas.loucademia.domain.acesso.Acesso;
 import br.com.fmchagas.loucademia.domain.acesso.AcessoRepository;
 import br.com.fmchagas.loucademia.domain.acesso.TipoAcesso;
 import br.com.fmchagas.loucademia.domain.aluno.Aluno;
@@ -20,8 +21,8 @@ public class AcessoService {
 	private AlunoRepository alunoRepository;
 
 	public TipoAcesso registrar(String matricula, Integer rg) {
-		if (StringUtils.isEmpty(matricula) && rg ==null) {
-			throw new ValidationException("É preciso fornecer a matrícula ou o RG.");
+		if (StringUtils.isEmpty(matricula) && rg == null) {
+			throw new ValidationException("É preciso fornecer a matrícula ou o RG do aluno");
 		}
 		
 		Aluno aluno;
@@ -35,9 +36,25 @@ public class AcessoService {
 			throw new ValidationException("O aluno não foi encontrado.");
 		}
 		
+		Acesso ultimoAcesso  = acessoRepository.findUltimoAcesso(aluno);
+		TipoAcesso tipoAcesso;
 		
+		System.out.println(ultimoAcesso);
 		
-		return null;
+		if (ultimoAcesso.entradaSaidaPreenchidas()  || ultimoAcesso == null) {
+			ultimoAcesso = new Acesso();
+			ultimoAcesso.setAluno(aluno);
+			tipoAcesso = ultimoAcesso.registrarAcesso();
+			acessoRepository.store(ultimoAcesso);
+			
+		}else {
+			tipoAcesso = ultimoAcesso.registrarAcesso();
+			//acessoRepository.update(ultimoAcesso);
+			
+		}
+		
+		System.out.println(tipoAcesso);
+		return tipoAcesso;
 	}
 	
 	
