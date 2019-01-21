@@ -27,8 +27,8 @@ public class Acesso implements Serializable {
 	private LocalDateTime saida;
 	
 	
-	public Boolean entradaSaidaPreenchidas() {
-		if (entrada != null && saida != null) {
+	public boolean setEntradaSaidaPreenchidas() {
+		if (this.entrada != null && this.saida != null) {
 			return true;
 		}
 		
@@ -40,11 +40,11 @@ public class Acesso implements Serializable {
 		
 		TipoAcesso tipoAcesso;
 		
-		if (entrada == null) {
-			entrada = now;
+		if (this.entrada == null) {
+			this.entrada = now;
 			tipoAcesso = TipoAcesso.Entrada;
-		}else if(saida == null){
-			saida = now;
+		}else if(this.saida == null){
+			this.saida = now;
 			tipoAcesso = TipoAcesso.Saida;
 		}else {
 			tipoAcesso = null;

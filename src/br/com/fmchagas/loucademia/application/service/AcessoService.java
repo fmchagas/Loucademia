@@ -41,7 +41,7 @@ public class AcessoService {
 		
 		System.out.println(ultimoAcesso);
 		
-		if (ultimoAcesso.entradaSaidaPreenchidas()  || ultimoAcesso == null) {
+		if ( ultimoAcesso==null || ultimoAcesso.setEntradaSaidaPreenchidas() ) {
 			ultimoAcesso = new Acesso();
 			ultimoAcesso.setAluno(aluno);
 			tipoAcesso = ultimoAcesso.registrarAcesso();
