@@ -10,6 +10,7 @@ import br.com.fmchagas.loucademia.application.util.Validation;
 import br.com.fmchagas.loucademia.application.util.ValidationException;
 import br.com.fmchagas.loucademia.domain.aluno.Aluno;
 import br.com.fmchagas.loucademia.domain.aluno.AlunoRepository;
+import br.com.fmchagas.loucademia.domain.aluno.Aluno.Situacao;
 
 @Stateless
 public class AlunoService {
@@ -58,6 +59,12 @@ public class AlunoService {
 
 	public void delete(String matricula) {
 		alunoRepository.delete(matricula);
+	}
+	
+	public List<Aluno> listSituacoesAlunos(Situacao situacao){
+		Validation.assertNotEmpty(situacao);
+		
+		return alunoRepository.listSituacoesAlunos(situacao);
 	}
 
 }

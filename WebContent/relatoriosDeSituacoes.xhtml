@@ -11,12 +11,14 @@
 		<ui:param name="title" value="Relatório de situações" />
 		<ui:define name="conteudo">
 			<f:metadata>
-				<f:viewAction action="#{relatorioSituacoesBean.check}" />
+				<!-- <f:viewAction action="#{relatorioSituacoesBean.check}" /> -->
 			</f:metadata>
 			
-			<form jsf:id="form">
+			<form jsf:id="frm">
+				
 				<fieldset>
 					<legend>Parâmetros da Pesquisa</legend>
+					
 					<label for="situacao">Situação</label><br />
 					<select jsf:value="#{relatorioSituacoesBean.situacao}" id="situacao" size="0">
 						<f:selectItems value="#{dataBean.situacoes}" />
@@ -51,6 +53,7 @@
 						</ui:repeat>
 					</table>
 				</h:panelGroup>
+				
 			</form>
 		</ui:define>
 	</ui:composition>

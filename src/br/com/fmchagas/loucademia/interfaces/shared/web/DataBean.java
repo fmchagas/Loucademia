@@ -36,8 +36,6 @@ public class DataBean implements Serializable {
 			return "";
 		}
 		
-		System.out.println("fmtTel: ");
-		
 		return "("+ ddd +") "+ numero;
 	}
 }
