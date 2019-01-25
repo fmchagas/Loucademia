@@ -1,6 +1,7 @@
 package br.com.fmchagas.loucademia.domain.acesso;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -53,8 +54,14 @@ public class Acesso implements Serializable {
 		return tipoAcesso;
 	}
 	
-	public Integer calcularDuracao(){
-		return 10;
+	public String calcularDuracao(){
+		if (  entrada==null || saida==null ) {
+			return null;
+		}
+		
+		Duration d = Duration.between(entrada, saida);
+		
+		return String.format("%02d:%02d:%02d", d.toHoursPart(), d.toMinutesPart(), d.toSecondsPart());
 	}
 
 	@Id

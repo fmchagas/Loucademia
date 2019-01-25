@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.fmchagas.loucademia.application.service.AlunoService;
+import br.com.fmchagas.loucademia.application.util.StringUtils;
 import br.com.fmchagas.loucademia.application.util.ValidationException;
 import br.com.fmchagas.loucademia.domain.acesso.Acesso;
 
@@ -30,6 +31,12 @@ public class RelatorioEntradaSaidaBean implements Serializable{
 	private String matricula;
 	private LocalDate dataInicial;
 	private LocalDate dataFinal;
+	
+	public void carregarAluno() {
+		if (!StringUtils.isEmpty(matricula)) {
+			gerarRelatorio();
+		}
+	}
 	
 	public String gerarRelatorio(){
 		try {

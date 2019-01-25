@@ -10,9 +10,11 @@
 	<ui:param name="title" value="Relatórios de Entradas e Saídas" />
 	<ui:define name="conteudo">
 		<f:metadata>
-			<!-- <f:viewParam name="matricula" value="#{relatorioEntradaSaidaBean.matricula}" />
-				<f:viewAction action="#{relatorioEntradaSaidaBean.carregarAluno}" /> -->
+			<f:viewParam name="matricula" value="#{relatorioEntradaSaidaBean.matricula}" />
+				<f:viewAction action="#{relatorioEntradaSaidaBean.carregarAluno}" />
 		</f:metadata>
+		
+		<h1>Relatório de Acessos</h1>
 
 		<h:panelGroup rendered="#{!facesContext.messageList.isEmpty()}">
 			<div id="infoMessage">

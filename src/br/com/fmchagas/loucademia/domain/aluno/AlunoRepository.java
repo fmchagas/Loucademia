@@ -111,11 +111,11 @@ public class AlunoRepository {
 		}
 		
 		if (dataInicial != null) {
-			jpql.append("a.entrada >= :entradaInicio AND a.entrada <= :entradaFim AND ");
+			jpql.append("a.entrada >= :entradaInicio AND ");
 		}
 		
 		if (dataFinal != null) {
-			jpql.append("a.saida >= :saidaInicio AND a.saida <= :saidaFim AND ");
+			jpql.append("a.saida <= :saidaFim AND ");
 		}
 		
 		jpql.append("1 = 1 ORDER BY a.entrada");
@@ -129,16 +129,10 @@ public class AlunoRepository {
 		if (dataInicial != null) {
 			LocalDateTime ldt = LocalDateTime.of(dataInicial, LocalTime.of(0, 0, 0));
 			q.setParameter("entradaInicio", ldt);
-			
-			ldt = LocalDateTime.of(dataInicial, LocalTime.of(23, 59, 59));
-			q.setParameter("entradaFim", ldt);
 		}
 		
 		if (dataFinal != null) {
-			LocalDateTime ldt = LocalDateTime.of(dataFinal, LocalTime.of(0, 0, 0));
-			q.setParameter("saidaInicio", ldt);
-			
-			ldt = LocalDateTime.of(dataFinal, LocalTime.of(23, 59, 59));
+			 LocalDateTime ldt = LocalDateTime.of(dataFinal, LocalTime.of(23, 59, 59));
 			q.setParameter("saidaFim", ldt);
 		}
 		
