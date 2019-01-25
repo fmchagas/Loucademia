@@ -1,9 +1,12 @@
 package br.com.fmchagas.loucademia.application.service;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import br.com.fmchagas.loucademia.application.util.StringUtils;
+import br.com.fmchagas.loucademia.application.util.Validation;
 import br.com.fmchagas.loucademia.application.util.ValidationException;
 import br.com.fmchagas.loucademia.domain.acesso.Acesso;
 import br.com.fmchagas.loucademia.domain.acesso.AcessoRepository;
@@ -56,6 +59,5 @@ public class AcessoService {
 		System.out.println(tipoAcesso);
 		return tipoAcesso;
 	}
-	
 	
 }

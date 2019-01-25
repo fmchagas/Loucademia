@@ -52,6 +52,10 @@ public class Acesso implements Serializable {
 		
 		return tipoAcesso;
 	}
+	
+	public Integer calcularDuracao(){
+		return 10;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

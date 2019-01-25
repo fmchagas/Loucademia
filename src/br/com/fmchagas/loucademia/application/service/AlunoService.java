@@ -1,5 +1,6 @@
 package br.com.fmchagas.loucademia.application.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,6 +9,7 @@ import javax.ejb.Stateless;
 import br.com.fmchagas.loucademia.application.util.StringUtils;
 import br.com.fmchagas.loucademia.application.util.Validation;
 import br.com.fmchagas.loucademia.application.util.ValidationException;
+import br.com.fmchagas.loucademia.domain.acesso.Acesso;
 import br.com.fmchagas.loucademia.domain.aluno.Aluno;
 import br.com.fmchagas.loucademia.domain.aluno.AlunoRepository;
 import br.com.fmchagas.loucademia.domain.aluno.Aluno.Situacao;
@@ -51,7 +53,7 @@ public class AlunoService {
 	
 	public List<Aluno> listAlunos(String matricula, String nome, Integer rg, Integer telefone){
 		if (StringUtils.isEmpty(matricula) && StringUtils.isEmpty(nome) && rg == null && telefone == null)  {
-			throw new ValidationException("Pelo menos um critério de pesquisa deve ser fornecido");
+			throw new ValidationException("Pelo menos um critério de pesquisa deve ser fornecido.");
 		}
 		
 		return alunoRepository.listAlunos(matricula, nome, rg, telefone);
@@ -65,6 +67,14 @@ public class AlunoService {
 		Validation.assertNotEmpty(situacao);
 		
 		return alunoRepository.listSituacoesAlunos(situacao);
+	}
+
+	public List<Acesso> listAcessosAluno(String matricula, LocalDate dataInicial, LocalDate dataFinal) {
+		if (StringUtils.isEmpty(matricula) && dataInicial ==null && dataFinal == null) {
+			throw new ValidationException("Pelo menos um critério de pesquisa deve ser fornecido.");
+		}
+		
+		return alunoRepository.listAcessosAluno(matricula, dataInicial, dataFinal);
 	}
 
 }

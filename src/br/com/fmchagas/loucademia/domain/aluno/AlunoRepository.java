@@ -1,5 +1,8 @@
 package br.com.fmchagas.loucademia.domain.aluno;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Year;
 import java.util.List;
 
@@ -9,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import br.com.fmchagas.loucademia.application.util.StringUtils;
+import br.com.fmchagas.loucademia.domain.acesso.Acesso;
 import br.com.fmchagas.loucademia.domain.aluno.Aluno.Situacao;
 
 @Stateless
@@ -70,7 +74,6 @@ public class AlunoRepository {
 		jpql.append("1 = 1");
 		
 		TypedQuery<Aluno> q = em.createQuery(jpql.toString(), Aluno.class);
-		System.out.println(jpql.toString());
 		
 		
 		if (!StringUtils.isEmpty(matricula)) {
@@ -97,6 +100,49 @@ public class AlunoRepository {
 		return em.createQuery("SELECT a FROM Aluno a WHERE a.situacao = :situacao ORDER BY a.nome", Aluno.class)
 				.setParameter("situacao", situacao)
 				.getResultList();
+	}
+	
+	
+	public List<Acesso> listAcessosAluno(String matricula, LocalDate dataInicial, LocalDate dataFinal) {
+		StringBuilder jpql = new StringBuilder("SELECT a FROM Acesso a WHERE ");
+		
+		if (!StringUtils.isEmpty(matricula)) {
+			jpql.append("a.aluno.matricula = :matricula AND ");
+		}
+		
+		if (dataInicial != null) {
+			jpql.append("a.entrada >= :entradaInicio AND a.entrada <= :entradaFim AND ");
+		}
+		
+		if (dataFinal != null) {
+			jpql.append("a.saida >= :saidaInicio AND a.saida <= :saidaFim AND ");
+		}
+		
+		jpql.append("1 = 1 ORDER BY a.entrada");
+		
+		TypedQuery<Acesso> q = em.createQuery(jpql.toString(), Acesso.class);
+		
+		if (!StringUtils.isEmpty(matricula)) {
+			q.setParameter("matricula", matricula);
+		}
+		
+		if (dataInicial != null) {
+			LocalDateTime ldt = LocalDateTime.of(dataInicial, LocalTime.of(0, 0, 0));
+			q.setParameter("entradaInicio", ldt);
+			
+			ldt = LocalDateTime.of(dataInicial, LocalTime.of(23, 59, 59));
+			q.setParameter("entradaFim", ldt);
+		}
+		
+		if (dataFinal != null) {
+			LocalDateTime ldt = LocalDateTime.of(dataFinal, LocalTime.of(0, 0, 0));
+			q.setParameter("saidaInicio", ldt);
+			
+			ldt = LocalDateTime.of(dataFinal, LocalTime.of(23, 59, 59));
+			q.setParameter("saidaFim", ldt);
+		}
+		
+		return q.getResultList();
 	}
 
 }

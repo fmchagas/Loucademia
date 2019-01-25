@@ -33,6 +33,7 @@ public class RelatorioSituacoesBean implements Serializable {
 	public String gerarRelatorio() {		
 		try {
 			this.alunos = this.alunoService.listSituacoesAlunos(this.situacao);
+			
 		} catch (ValidationException e) {
 			facesContext.addMessage(null, new FacesMessage(e.getMessage()));
 		}

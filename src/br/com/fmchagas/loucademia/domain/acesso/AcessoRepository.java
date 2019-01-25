@@ -1,5 +1,7 @@
 package br.com.fmchagas.loucademia.domain.acesso;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -28,5 +30,7 @@ public class AcessoRepository {
 	public void store(Acesso acesso) {
 		em.persist(acesso);
 	}
+
+	
 
 }
